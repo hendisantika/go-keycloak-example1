@@ -18,3 +18,7 @@ type loginResponse struct {
 	RefreshToken string `json:"refreshToken"`
 	ExpiresIn    int    `json:"expiresIn"`
 }
+
+type controller struct {
+	keycloak *keycloak
+}

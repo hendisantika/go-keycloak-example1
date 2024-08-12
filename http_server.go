@@ -55,3 +55,7 @@ func NewServer(host, port string, keycloak *keycloak) *httpServer {
 
 	return s
 }
+
+func (s *httpServer) listen() error {
+	return s.server.ListenAndServe()
+}

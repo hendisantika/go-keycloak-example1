@@ -7,3 +7,8 @@ type doc struct {
 	Num  string    `json:"num"`
 	Date time.Time `json:"date"`
 }
+
+type loginRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}

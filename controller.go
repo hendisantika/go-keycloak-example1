@@ -66,3 +66,25 @@ func (c *controller) login(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(rsJs)
 }
+
+func (c *controller) getDocs(w http.ResponseWriter, r *http.Request) {
+	rs := []*doc{
+		{
+			Id:   "1",
+			Num:  "ABC-123",
+			Date: time.Now().UTC(),
+		},
+		{
+			Id:   "2",
+			Num:  "ABC-456",
+			Date: time.Now().UTC(),
+		},
+	}
+
+	rsJs, _ := json.Marshal(rs)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(rsJs)
+
+}

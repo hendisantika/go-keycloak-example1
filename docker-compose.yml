@@ -1,0 +1,17 @@
+services:
+  keycloak:
+    image: "quay.io/keycloak/keycloak:25.0.2"
+    command:
+      - start-dev
+      - --health-enabled=true
+      - --import-realm
+    volumes:
+      - ./keycloak:/opt/keycloak/data
+      - ./keycloak:/opt/keycloak/data/import
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - '8080:8080'
+volumes:
+  keycloak:

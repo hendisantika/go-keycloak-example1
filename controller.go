@@ -22,3 +22,9 @@ type loginResponse struct {
 type controller struct {
 	keycloak *keycloak
 }
+
+func newController(keycloak *keycloak) *controller {
+	return &controller{
+		keycloak: keycloak,
+	}
+}

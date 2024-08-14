@@ -14,6 +14,6 @@ func newKeycloak() *keycloak {
 		client:       gocloak.NewClient("http://localhost:8080"),
 		realm:        "PowerRanger",
 		clientId:     "my-go-service",
-		clientSecret: "abfa2984-9125-486b-b360-03386ad13e08",
+		clientSecret: "PE73ia15f68FLHIM9UqhZf729lEqijhR",
 	}
 }

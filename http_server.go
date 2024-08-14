@@ -39,6 +39,10 @@ func NewServer(host, port string, keycloak *keycloak) *httpServer {
 		controller.getDocs(writer, request)
 	}).Methods("GET")
 
+	authRouter.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
+		controller.getTest(writer, request)
+	}).Methods("GET")
+
 	// apply middleware
 	mdw := newMiddleware(keycloak)
 	authRouter.Use(mdw.verifyToken)

@@ -1,4 +1,5 @@
 .idea
+keycloak
 *.iml
 # Binaries for programs and plugins
 *.exe

@@ -41,13 +41,13 @@ func (auth *keyCloakMiddleware) verifyToken(next http.Handler) http.Handler {
 		}
 
 		//// call Keycloak API to verify the access token
-		result, err := auth.keycloak.gocloak.RetrospectToken(context.Background(), token, auth.keycloak.clientId, auth.keycloak.clientSecret, auth.keycloak.realm)
+		result, err := auth.keycloak.client.RetrospectToken(context.Background(), token, auth.keycloak.clientId, auth.keycloak.clientSecret, auth.keycloak.realm)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Invalid or malformed token: %s", err.Error()), http.StatusUnauthorized)
 			return
 		}
 
-		jwt, _, err := auth.keycloak.gocloak.DecodeAccessToken(context.Background(), token, auth.keycloak.realm)
+		jwt, _, err := auth.keycloak.client.DecodeAccessToken(context.Background(), token, auth.keycloak.realm)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Invalid or malformed token: %s", err.Error()), http.StatusUnauthorized)
 			return

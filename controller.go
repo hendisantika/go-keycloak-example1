@@ -42,7 +42,7 @@ func (c *controller) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jwt, err := c.keycloak.gocloak.Login(context.Background(),
+	jwt, err := c.keycloak.client.Login(context.Background(),
 		c.keycloak.clientId,
 		c.keycloak.clientSecret,
 		c.keycloak.realm,

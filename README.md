@@ -8,6 +8,16 @@
 4. Open new terminal then run command: `go build && ./go-keycloak-example1`
 5. Open postman collection file.
 
+### Generate Token
+
+```shell
+curl --location 'http://localhost:8080/realms/PowerRanger/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=my-go-service' \
+--data-urlencode 'client_secret=PE73ia15f68FLHIM9UqhZf729lEqijhR' \
+--data-urlencode 'grant_type=client_credentials'
+```
+
 #### Test API with no Authorization
 
 ```shell

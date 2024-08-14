@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	s := NewServer("127.0.0.1", "8081", newKeycloak())
+	s := NewServer("localhost", "8081", newKeycloak())
 	fmt.Println("Listening on port 8081")
 
 	s.listen()

@@ -4,10 +4,10 @@ services:
     command:
       - start-dev
       - --health-enabled=true
-    #      - --import-realm
+      - --import-realm
     volumes:
       - ./keycloak:/opt/keycloak/data
-    #      - ./keycloak:/opt/keycloak/data/import
+      - ./PowerRanger.json:/opt/keycloak/data/import
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin

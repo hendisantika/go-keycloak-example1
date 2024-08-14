@@ -4,10 +4,10 @@ import "github.com/Nerzal/gocloak/v13"
 
 type keycloak struct {
 	//gocloak      gocloak.GoCloak // keycloak client
-	client       gocloak.GoCloak // keycloak client
-	realm        string          // realm specified in Keycloak
-	clientId     string          // clientId specified in Keycloak
-	clientSecret string          // client secret specified in Keycloak
+	client       *gocloak.GoCloak // keycloak client
+	realm        string           // realm specified in Keycloak
+	clientId     string           // clientId specified in Keycloak
+	clientSecret string           // client secret specified in Keycloak
 }
 
 func newKeycloak() *keycloak {

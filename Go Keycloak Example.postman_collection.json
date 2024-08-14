@@ -1,0 +1,160 @@
+{
+  "info": {
+    "_postman_id": "dba0fe6c-d322-47cc-9080-a86236a3e080",
+    "name": "Go Keycloak Example",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "276892"
+  },
+  "item": [
+    {
+      "name": "Test API",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWNld1ZWcyaUxHb3IxOXF4VFFHWlhmaW5rQTNlNlMwZ2NkSGwzTXc1bGRjIn0.eyJleHAiOjE3MjM2MzYwOTUsImlhdCI6MTcyMzYzNTc5NSwianRpIjoiNjE3ZWJhYzktOWFlZC00ODllLTg3Y2YtZTM0ODgwZTEzY2Y5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9Qb3dlclJhbmdlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJjM2ZkMmNhYS1hZDk4LTRmMjAtOTYwMS04OWEyZGZkOGEyNzYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJteS1nby1zZXJ2aWNlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtcG93ZXJyYW5nZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxOTIuMTY4LjY1LjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbXktZ28tc2VydmljZSIsImNsaWVudEFkZHJlc3MiOiIxOTIuMTY4LjY1LjEiLCJjbGllbnRfaWQiOiJteS1nby1zZXJ2aWNlIn0.dcRXWE6IdxTosgJao2Dl_xua8I7cGOUFL-3itFsv-ajwMdwxEjgTjMin2a1vpx9m7pG7oBLb5nH1iOyknIOYbHPRq8Qoued8OTqTBHtu-fMxsOC2sRauiRIE_gV5K2JpTbYq_SGdxbcD3pNAEYDW8kBqwwjeK9NZJjmV4Iw4q8ZcIYgkoKjxw_Y1F81wpU9LDbY6E3JOitN1u83QyVyJTA-vjNneuE8y9t5GnwNvR8iKNCLCHbyDWMxQVp4Dht_oHsKnJu76X2UP7fsDIkAhSl1mTWoGWlspvlwr-NMQSM3um2stNXI9yP94YMfC1JMyokf-eL80amxC7p3huSRHbw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/test",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "test"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Docs",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJWNld1ZWcyaUxHb3IxOXF4VFFHWlhmaW5rQTNlNlMwZ2NkSGwzTXc1bGRjIn0.eyJleHAiOjE3MjM2MzMzMTMsImlhdCI6MTcyMzYzMzAxMywianRpIjoiM2MzZDhkMjEtY2Q2Yi00YzE5LWI1MTQtYTZkNWE4YTFlYzlhIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9Qb3dlclJhbmdlciIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJjM2ZkMmNhYS1hZDk4LTRmMjAtOTYwMS04OWEyZGZkOGEyNzYiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJteS1nby1zZXJ2aWNlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIvKiJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtcG93ZXJyYW5nZXIiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudEhvc3QiOiIxOTIuMTY4LjY1LjEiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtbXktZ28tc2VydmljZSIsImNsaWVudEFkZHJlc3MiOiIxOTIuMTY4LjY1LjEiLCJjbGllbnRfaWQiOiJteS1nby1zZXJ2aWNlIn0.ZGE6kRorrqFyegAhCJAlJHCWUGDTU88dhBJnvW9I2-269Nt0Od0_z6U_WPmdXh_UpcWfp04ANXYeP4nOQ_xQjDbvjOGlILZsmE_vWKWQD4xTrqiXZwGx7eHLoNCva_4uOYdxNl8VtkH2DJvKsJ6i4xLr5V524a2Vkr2hVWgctFEyDcZbmIJJ2p6Zy1Or52PQtQ5S1DDyy2-7d3gAjPQT5TXGj_YasJWnMYh041jpA8yz51kHKnwTR-NvweuvR0SCIn9nihQv_C1ae1klqWjt2MiCTByU4ZNTu5AjIx6JcApSJWMyk263-0B9yElKJY_PJ54O4onWTT_yyr6oBq6DPw",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8081/docs",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8081",
+          "path": [
+            "docs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\" : \"yuji\",\n    \"password\": \"yuji\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8081/login",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8081",
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "client_id",
+              "value": "my-go-service",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "PE73ia15f68FLHIM9UqhZf729lEqijhR",
+              "type": "text"
+            },
+            {
+              "key": "grant_type",
+              "value": "client_credentials",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/realms/PowerRanger/protocol/openid-connect/token",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "realms",
+            "PowerRanger",
+            "protocol",
+            "openid-connect",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

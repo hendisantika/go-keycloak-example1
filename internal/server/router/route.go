@@ -9,34 +9,31 @@ import (
 
 func New(ctrl *controller.Controller, ma *middleware.Authentication) *mux.Router {
 	// create a root router
-	router := mux.NewRouter()
+	router := mux.NewRouter().StrictSlash(true)
+
+	//noAuthRouter := router.PathPrefix("/").Subrouter()
 
 	// add a subrouter based on matcher func
 	// note, routers are processed one by one in order, so that if one of the routing matches other won't be processed
-	noAuthRouter := router.MatcherFunc(func(r *http.Request, rm *mux.RouteMatch) bool {
-		return r.Header.Get("Authorization") == ""
-	}).Subrouter()
-
-	// add one more subrouter for the authenticated service methods
-	authRouter := router.MatcherFunc(func(r *http.Request, rm *mux.RouteMatch) bool {
-		return true
-	}).Subrouter()
+	//noAuthRouter := router.PathPrefix("/").MatcherFunc(func(r *http.Request, rm *mux.RouteMatch) bool {
+	//	return r.Header.Get("Authorization") == ""
+	//}).Subrouter()
+	//
+	//// add one more subrouter for the authenticated service methods
+	//authRouter := router.PathPrefix("/secure").MatcherFunc(func(r *http.Request, rm *mux.RouteMatch) bool {
+	//	return r.Header.Get("Authorization") != ""
+	//}).Subrouter()
 
 	// map url routes to controller's methods
-	noAuthRouter.HandleFunc("/login", func(writer http.ResponseWriter, request *http.Request) {
-		ctrl.Login(writer, request)
-	}).Methods("POST")
+	authRoute := router.Methods(http.MethodPost, http.MethodGet).Subrouter()
+	authRoute.HandleFunc("/test", ctrl.Login)
+	authRoute.HandleFunc("/docs", ctrl.GetDocs)
 
-	authRouter.HandleFunc("/docs", func(writer http.ResponseWriter, request *http.Request) {
-		ctrl.GetDocs(writer, request)
-	}).Methods("GET")
+	// use middleware
+	authRoute.Use(ma.VerifyToken)
 
-	authRouter.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
-		ctrl.GetTest(writer, request)
-	}).Methods("GET")
-
-	// apply middleware
-	authRouter.Use(ma.VerifyToken)
+	noAuthRoute := router.PathPrefix("/login").Subrouter()
+	noAuthRoute.HandleFunc("", ctrl.Login)
 
 	return router
 }

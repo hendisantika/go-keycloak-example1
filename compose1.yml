@@ -1,0 +1,35 @@
+services:
+  keycloak:
+    image: bitnami/keycloak:25.0.2
+    environment:
+      - KEYCLOAK_DATABASE_HOST=postgresql
+      - KEYCLOAK_DATABASE_PORT=5432
+      - KEYCLOAK_DATABASE_NAME=keycloak_db
+      - KEYCLOAK_DATABASE_USER=keycloak_user
+      - KEYCLOAK_DATABASE_PASSWORD=keycloak_password
+      - KEYCLOAK_ADMIN_USER=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin_password
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgresql
+    networks:
+      - keycloak_network
+
+  postgresql:
+    image: bitnami/postgresql:16.4
+    environment:
+      - POSTGRESQL_DATABASE=keycloak_db
+      - POSTGRESQL_USERNAME=keycloak_user
+      - POSTGRESQL_PASSWORD=keycloak_password
+      - POSTGRESQL_POSTGRES_PASSWORD=root_password
+    volumes:
+      - postgresql_data:/bitnami/postgresql
+    networks:
+      - keycloak_network
+
+volumes:
+  postgresql_data:
+
+networks:
+  keycloak_network:

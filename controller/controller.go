@@ -1,8 +1,9 @@
-package main
+package controller
 
 import (
 	"context"
 	"encoding/json"
+	keycloack "go-keycloak-example1/pkp/keycloak"
 	"net/http"
 	"time"
 )
@@ -24,17 +25,17 @@ type loginResponse struct {
 	ExpiresIn    int    `json:"expiresIn"`
 }
 
-type controller struct {
-	keycloak *keycloak
+type Controller struct {
+	keycloak *keycloack.Keycloak
 }
 
-func newController(keycloak *keycloak) *controller {
-	return &controller{
+func New(keycloak *keycloack.Keycloak) *Controller {
+	return &Controller{
 		keycloak: keycloak,
 	}
 }
 
-func (c *controller) login(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	rq := &loginRequest{}
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(rq); err != nil {
@@ -42,10 +43,10 @@ func (c *controller) login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jwt, err := c.keycloak.client.Login(context.Background(),
-		c.keycloak.clientId,
-		c.keycloak.clientSecret,
-		c.keycloak.realm,
+	jwt, err := c.keycloak.Client.Login(context.Background(),
+		c.keycloak.ClientId,
+		c.keycloak.ClientSecret,
+		c.keycloak.Realm,
 		rq.Username,
 		rq.Password)
 
@@ -67,7 +68,7 @@ func (c *controller) login(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(rsJs)
 }
 
-func (c *controller) getDocs(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) GetDocs(w http.ResponseWriter, r *http.Request) {
 	rs := []*doc{
 		{
 			Id:   "1",
@@ -89,7 +90,7 @@ func (c *controller) getDocs(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (c *controller) getTest(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) GetTest(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)

@@ -1,26 +1,24 @@
-package main
+package middleware
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
+	keycloack "go-keycloak-example1/pkp/keycloak"
 	"net/http"
 	"strings"
 )
 
-type keyCloakMiddleware struct {
-	keycloak *keycloak
+type Authentication struct {
+	keycloak *keycloack.Keycloak
 }
 
-func newMiddleware(keycloak *keycloak) *keyCloakMiddleware {
-	return &keyCloakMiddleware{keycloak: keycloak}
+func New(keycloak *keycloack.Keycloak) *Authentication {
+
+	return &Authentication{keycloak: keycloak}
 }
 
-func (auth *keyCloakMiddleware) extractBearerToken(token string) string {
-	return strings.Replace(token, "Bearer ", "", 1)
-}
-
-func (auth *keyCloakMiddleware) verifyToken(next http.Handler) http.Handler {
+func (m *Authentication) VerifyToken(next http.Handler) http.Handler {
 
 	f := func(w http.ResponseWriter, r *http.Request) {
 
@@ -28,12 +26,13 @@ func (auth *keyCloakMiddleware) verifyToken(next http.Handler) http.Handler {
 		token := r.Header.Get("Authorization")
 
 		if token == "" {
+
 			http.Error(w, "Authorization header missing", http.StatusUnauthorized)
 			return
 		}
 
 		// extract Bearer token
-		token = auth.extractBearerToken(token)
+		token = extractBearerToken(token)
 
 		if token == "" {
 			http.Error(w, "Bearer Token missing", http.StatusUnauthorized)
@@ -41,13 +40,13 @@ func (auth *keyCloakMiddleware) verifyToken(next http.Handler) http.Handler {
 		}
 
 		//// call Keycloak API to verify the access token
-		result, err := auth.keycloak.client.RetrospectToken(context.Background(), token, auth.keycloak.clientId, auth.keycloak.clientSecret, auth.keycloak.realm)
+		result, err := m.keycloak.Client.RetrospectToken(context.Background(), token, m.keycloak.ClientId, m.keycloak.ClientSecret, m.keycloak.Realm)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Invalid or malformed token: %s", err.Error()), http.StatusUnauthorized)
 			return
 		}
 
-		jwt, _, err := auth.keycloak.client.DecodeAccessToken(context.Background(), token, auth.keycloak.realm)
+		jwt, _, err := m.keycloak.Client.DecodeAccessToken(context.Background(), token, m.keycloak.Realm)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Invalid or malformed token: %s", err.Error()), http.StatusUnauthorized)
 			return
@@ -66,4 +65,8 @@ func (auth *keyCloakMiddleware) verifyToken(next http.Handler) http.Handler {
 	}
 
 	return http.HandlerFunc(f)
+}
+
+func extractBearerToken(token string) string {
+	return strings.Replace(token, "Bearer ", "", 1)
 }

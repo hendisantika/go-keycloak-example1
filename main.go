@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
-	"os"
-	"os/signal"
-	"syscall"
+	"go-keycloak-example1/controller"
+	"go-keycloak-example1/internal/server"
+	"go-keycloak-example1/internal/server/router"
+	keycloack "go-keycloak-example1/pkp/keycloak"
+	"go-keycloak-example1/server/middleware"
 )
 
 func main() {
-	s := NewServer("localhost", "8081", newKeycloak())
-	fmt.Println("Listening on port 8081")
+	// dependency injection
+	kc := keycloack.New()
+	ctrl := controller.New(kc)
+	m := middleware.New(kc)
+	route := router.New(ctrl, m)
 
-	s.listen()
-
-	quit := make(chan os.Signal)
-	signal.Notify(quit, os.Interrupt, syscall.SIGTERM)
-	<-quit
+	// starting server
+	server.Start(route)
 }

@@ -1,18 +1,13 @@
-package main
+package router
 
 import (
-	"fmt"
 	"github.com/gorilla/mux"
+	"go-keycloak-example1/controller"
+	"go-keycloak-example1/server/middleware"
 	"net/http"
-	"time"
 )
 
-type httpServer struct {
-	server *http.Server
-}
-
-func NewServer(host, port string, keycloak *keycloak) *httpServer {
-
+func New(ctrl *controller.Controller, ma *middleware.Authentication) *mux.Router {
 	// create a root router
 	router := mux.NewRouter()
 
@@ -27,39 +22,21 @@ func NewServer(host, port string, keycloak *keycloak) *httpServer {
 		return true
 	}).Subrouter()
 
-	// instantiate a new controller which is supposed to serve our routes
-	controller := newController(keycloak)
-
 	// map url routes to controller's methods
 	noAuthRouter.HandleFunc("/login", func(writer http.ResponseWriter, request *http.Request) {
-		controller.login(writer, request)
+		ctrl.Login(writer, request)
 	}).Methods("POST")
 
 	authRouter.HandleFunc("/docs", func(writer http.ResponseWriter, request *http.Request) {
-		controller.getDocs(writer, request)
+		ctrl.GetDocs(writer, request)
 	}).Methods("GET")
 
 	authRouter.HandleFunc("/test", func(writer http.ResponseWriter, request *http.Request) {
-		controller.getTest(writer, request)
+		ctrl.GetTest(writer, request)
 	}).Methods("GET")
 
 	// apply middleware
-	mdw := newMiddleware(keycloak)
-	authRouter.Use(mdw.verifyToken)
+	authRouter.Use(ma.VerifyToken)
 
-	// create a server object
-	s := &httpServer{
-		server: &http.Server{
-			Addr:         fmt.Sprintf("%s:%s", host, port),
-			Handler:      router,
-			WriteTimeout: time.Hour,
-			ReadTimeout:  time.Hour,
-		},
-	}
-
-	return s
-}
-
-func (s *httpServer) listen() error {
-	return s.server.ListenAndServe()
+	return router
 }

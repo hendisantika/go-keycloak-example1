@@ -1,17 +1,52 @@
 services:
-  keycloak:
-    image: "quay.io/keycloak/keycloak:25.0.2"
-    command:
-      - start-dev
-      - --health-enabled=true
-      - --import-realm
-    volumes:
-      - ./keycloak:/opt/keycloak/data
-      - ./PowerRanger.json:/opt/keycloak/data/import/PowerRanger.json
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+  #  keycloak:
+  #    image: "quay.io/keycloak/keycloak:25.0.2"
+  #    command:
+  #      - start-dev
+  #      - --health-enabled=true
+  #      - --import-realm
+  #      - --verbose
+  #    volumes:
+  #      - ./keycloak:/opt/keycloak/data
+  #      - ./PowerRanger.json:/opt/keycloak/data/import/PowerRanger.json
+  #    environment:
+  #      KEYCLOAK_ADMIN: admin
+  #      KEYCLOAK_ADMIN_PASSWORD: admin
+  #    ports:
+  #      - '8080:8080'
+  postgresql:
+    image: bitnami/postgresql:16.4.0
     ports:
-      - '8080:8080'
-volumes:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_DATABASE=keycloak
+      - POSTGRESQL_USERNAME=yuji
+      - POSTGRESQL_PASSWORD=S3cret
+    volumes:
+      - ./postgres_data:/bitnami/postgresql
+
   keycloak:
+    image: bitnami/keycloak:25.0.2
+    restart: always
+    ports:
+      - "8080:8080"
+    #    command:
+    #      - start-dev
+    #      - --health-enabled=true
+    #      - --import-realm
+    #      - --verbose
+    depends_on:
+      - postgresql
+    environment:
+      KEYCLOAK_ADMIN_USER: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_DATABASE_HOST: postgres
+      KEYCLOAK_DATABASE_PORT: 5432
+      KEYCLOAK_DATABASE_NAME: keycloak
+      KEYCLOAK_DATABASE_USER: keycloak
+      KEYCLOAK_DATABASE_PASSWORD: keycloak
+#    volumes:
+#      - ./infrastructure/keycloak/realms:/opt/bitnami/keycloak/data/import
+volumes:
+  keycloak-bitnami:
+

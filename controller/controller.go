@@ -3,7 +3,7 @@ package controller
 import (
 	"context"
 	"encoding/json"
-	keycloack "go-keycloak-example1/pkp/keycloak"
+	keycloack "go-keycloak-example1/pkg/keycloak"
 	"net/http"
 	"time"
 )

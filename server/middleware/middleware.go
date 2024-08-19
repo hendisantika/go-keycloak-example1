@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	keycloack "go-keycloak-example1/pkp/keycloak"
+	keycloack "go-keycloak-example1/pkg/keycloak"
 	"net/http"
 	"strings"
 )

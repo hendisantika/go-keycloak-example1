@@ -4,7 +4,7 @@ import (
 	"go-keycloak-example1/controller"
 	"go-keycloak-example1/internal/server"
 	"go-keycloak-example1/internal/server/router"
-	keycloack "go-keycloak-example1/pkp/keycloak"
+	keycloack "go-keycloak-example1/pkg/keycloak"
 	"go-keycloak-example1/server/middleware"
 )
 

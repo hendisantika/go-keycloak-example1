@@ -1,6 +1,6 @@
 services:
   keycloak:
-    image: bitnami/keycloak:25.0.2
+    image: bitnami/keycloak:25.0.4
     environment:
       - KEYCLOAK_DATABASE_HOST=postgresql
       - KEYCLOAK_DATABASE_PORT=5432

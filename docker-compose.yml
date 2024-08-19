@@ -26,7 +26,7 @@ services:
       - ./postgres_data:/bitnami/postgresql
 
   keycloak:
-    image: bitnami/keycloak:25.0.2
+    image: bitnami/keycloak:25.0.4
     restart: always
     ports:
       - "8080:8080"

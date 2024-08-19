@@ -26,7 +26,7 @@ func New(ctrl *controller.Controller, ma *middleware.Authentication) *mux.Router
 
 	// map url routes to controller's methods
 	authRoute := router.Methods(http.MethodPost, http.MethodGet).Subrouter()
-	authRoute.HandleFunc("/test", ctrl.Login)
+	authRoute.HandleFunc("/test", ctrl.GetTest)
 	authRoute.HandleFunc("/docs", ctrl.GetDocs)
 
 	// use middleware
